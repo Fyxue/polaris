@@ -16,4 +16,22 @@
 
 //= require bootstrap-mainfest
 
+//= require ckeditor/init
+
+//= require cocoon
+
 //= require_tree .
+
+$(document).ready(function(){
+    $('.panel-body').hover(function(){
+        $(this).find('i').removeClass("hide");
+    }, function(){
+        $(this).find("i").addClass("hide");
+    });
+    $('.filter').hover(function(){
+        $(this).parent().find("p").removeClass("invisible");
+    },function(){
+        $(this).parent().find("p").addClass("invisible");
+    });
+
+});

@@ -1,10 +1,54 @@
 p#notice
   = notice
-h1
-  = @post.title
-h4
-  = @post.short_description
+.container
+  .row
+    .col-lg-8
+      .card
+        h1
+          = @post.title
+        p
+          == @post.short_description
 
-= link_to 'Edit', edit_post_path(@post)
-= " | "
-= link_to 'Back', posts_path
+      - @post.sections.each do |section|
+        .card
+          h3 = section.title
+          == section.description
+
+
+      h2
+        = "Comments"
+      div#comments
+
+        = render :partial => @post.comments
+
+
+        = form_for [@post, Comment.new] do |f|
+          p
+            = f.label :body, "New comment"
+          br
+            = f.text_area :body
+
+          p
+            = f.submit "Add comment"
+
+    .col-lg-4
+      .card
+        h2.card-title Author
+        p
+          = current_user.email
+      .card
+        h2.card-title = "Contributors"
+        button.btn.btn-primary = "Be a contributor"
+
+      .card
+        h2.card-title = "Similar Guides"
+        p
+          = "No similar guides found"
+
+
+
+  = link_to 'Add Section', new_post_section_path(@post)
+  = " | "
+  = link_to 'Edit', edit_post_path(@post)
+  = " | "
+  = link_to 'Back', posts_path
